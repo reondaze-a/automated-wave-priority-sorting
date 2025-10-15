@@ -70,25 +70,27 @@ targetYmd → outputs('Get_today's_date')
 {
   "type": "object",
   "properties": {
-    "success": {"type": "boolean"},
-    "message": {"type": "string"},
+    "success": { "type": "boolean" },
+    "message": { "type": "string" },
     "rows": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "Wave #": {"type": "string"},
-          "Order Count": {"type": "integer"},
-          "Source Codes": {"type": "string"},
-          "Inducted ?": {"type": "string"},
-          "Req Ship Date": {"type": "string"}
+          "Wave #": { "type": "string" },
+          "PCL Order Count": { "type": "integer" },
+          "LTL Order Count": { "type": "integer" },
+          "Source Codes": { "type": "string" },
+          "Inducted ?": { "type": "string" },
+          "Req Ship Date": { "type": "string" }
         },
-        "required": ["Wave #","Order Count","Req Ship Date"]
+        "required": ["Wave #", "PCL Order Count", "LTL Order Count", "Req Ship Date"]
       }
     }
   },
-  "required": ["success","rows"]
+  "required": ["success", "rows"]
 }
+
 ```
 
 #### D. Create HTML Table + Style It
