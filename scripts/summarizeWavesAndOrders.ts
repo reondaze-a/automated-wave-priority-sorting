@@ -1,7 +1,8 @@
 function main(
   workbook: ExcelScript.Workbook,
   jsonText: string,
-  targetYmd: string // "YYYY-MM-DD" from Flow
+  targetYmd: string, // "YYYY-MM-DD" from Flow
+  sortBy: string = "Wave #"
 ): string {
   // ---------- Types ----------
   type InputRow = Record<string, unknown>;
@@ -137,7 +138,7 @@ function main(
   });
 
   // ---------- Sort: PCL Order Count desc (only) ----------
-  resultRows.sort((a, b) => b["PCL Order Count"] - a["PCL Order Count"]);
+  resultRows.sort((a, b) => b[sortBy] - a[sortBy]);
 
   return JSON.stringify({
     success: true,
