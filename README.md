@@ -1,5 +1,5 @@
 # 📦 Multi-Brand Wave Summary Automation  
-### *Cart.com Operations – Automated Excel & Email Workflow*
+### *Logistics Operations – Automated Excel & Email Workflow*
 
 ---
 
@@ -305,7 +305,7 @@ To include another brand (e.g., XYZ):
 
 ## 👤 Author
 
-**Abraham Candra**  
-Warehouse Operations Automation – Cart.com (Groveport)
+**Abraham Efraim**  
+Warehouse Operations Automation
 
 Designed and implemented multi-brand automated Wave List reporting using Power Automate, Office Scripts, and Outlook integration.
