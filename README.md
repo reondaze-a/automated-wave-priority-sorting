@@ -4,7 +4,7 @@
 ---
 
 ## 🧠 Overview
-This Power Automate project automatically aggregates and emails **Wave Lists** for multiple brands — **CBI**, **SLV**, and **PS** — from an Excel master file.  
+This Power Automate project automatically aggregates and emails **Wave Lists** for multiple brands from an Excel master file.  
 
 Each brand runs in **parallel**, processes its own sheet via **Office Scripts**, and generates a **styled HTML table**.  
 All three tables are combined into a single, fully formatted email showing each brand’s current-day waves, order counts, sources, and induction status.
@@ -17,7 +17,7 @@ All three tables are combined into a single, fully formatted email showing each 
 |------------|----------|
 | **Power Automate Flow** | Orchestrates the 3 parallel brand pipelines. |
 | **Excel Workbook** | Central data source (e.g., `All Brand SLA Internal (Current).xlsx`). |
-| **Office Script ① – GetTableData** | Reads and cleans raw brand sheet data (`CBI`, `SLV`, `PS`). |
+| **Office Script ① – GetTableData** | Reads and cleans raw brand sheet data (`Brand 1`, `Brand 2`, `Brand 3`). |
 | **Office Script ② – SummarizeWaveOrdersFromJson** | Aggregates Wave#, counts distinct orders, filters by *Req Ship Date*, adds *Inducted ?* check. |
 | **HTML Styling Chain** | `replace()` expressions apply consistent CSS to all tables. |
 | **Email Composer (Concat)** | Combines the three tables with titles and timestamps. |
@@ -31,7 +31,7 @@ All three tables are combined into a single, fully formatted email showing each 
 - **Type:** Recurrence  
 - **Interval:** Every 4 hours (or scheduled)
 
-### 2️⃣ Parallel Branches – CBI / SLV / PS
+### 2️⃣ Parallel Branches – Brand 1 / Brand 2 / Brand 3
 Each branch performs identical steps:
 
 #### A. Run Office Script – *GetTableData*
@@ -136,21 +136,21 @@ concat(
 '.gap{height:16px}',
 '</style></head><body>',
 '<h2>CBI Wave List ', outputs('Get_today\'s_date') ,'</h2>',
-if(empty(outputs('styledTable_Headers_CBI')),
+if(empty(outputs('styledTable_Headers_Brand1')),
   concat('<p style="text-align:center;color:#64748b;">No CBI rows for ', outputs('Get_today\'s_date') ,'</p>'),
-  outputs('styledTable_Headers_CBI')
+  outputs('styledTable_Headers_Brand1')
 ),
 '<div class="gap"></div>',
 '<h2>SLV Wave List ', outputs('Get_today\'s_date') ,'</h2>',
-if(empty(outputs('styledTable_Headers_SLV')),
+if(empty(outputs('styledTable_Headers_Brand2')),
   concat('<p style="text-align:center;color:#64748b;">No SLV rows for ', outputs('Get_today\'s_date') ,'</p>'),
-  outputs('styledTable_Headers_SLV')
+  outputs('styledTable_Headers_Brand2')
 ),
 '<div class="gap"></div>',
 '<h2>PS Wave List ', outputs('Get_today\'s_date') ,'</h2>',
-if(empty(outputs('styledTable_Headers_PS')),
+if(empty(outputs('styledTable_Headers_Brand3')),
   concat('<p style="text-align:center;color:#64748b;">No PS rows for ', outputs('Get_today\'s_date') ,'</p>'),
-  outputs('styledTable_Headers_PS')
+  outputs('styledTable_Headers_Brand3')
 ),
 '<div class="gap"></div>',
 '<p style="color:#64748b;font-size:12px;text-align:center;margin-top:24px;">Generated at ',
@@ -180,10 +180,10 @@ CBI Wave List 2025-10-14
 ----------------------------------------------------
 Wave # | Order Count | Source Codes | Inducted ? | Req Ship Date
 
-SLV Wave List 2025-10-14
+Brand1 Wave List 2025-10-14
 ...
 
-PS Wave List 2025-10-14
+Brand2 Wave List 2025-10-14
 ...
 ```
 
